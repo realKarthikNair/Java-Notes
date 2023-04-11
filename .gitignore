@@ -30,3 +30,5 @@ hs_err_pid*
 todo.txt
 
 *.docx*
+
+*.pdf
