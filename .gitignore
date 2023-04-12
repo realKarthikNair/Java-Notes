@@ -31,4 +31,6 @@ todo.txt
 
 *.docx*
 
-*.pdf
+*Lab*.pdf
+
+programs.pdf
