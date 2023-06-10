@@ -1,6 +1,6 @@
 // Write a Java program  to demonstrate the use of equals(), trim() ,length() , substring(), compareto()  of string class
 
-public class uQn21 {
+public class uStringClass {
     public static void main(String[] args) {
         String str1 = "    Some Text   ";
         String str2 = "some text";
