@@ -10,7 +10,7 @@ class nomatchexception extends Exception{
     }
 }
 
-public class pUserDefinedException{
+public class qUserDefinedException{
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a string: ");
