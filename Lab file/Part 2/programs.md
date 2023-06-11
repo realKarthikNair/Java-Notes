@@ -173,3 +173,197 @@ public class cImageAudio extends JFrame implements ActionListener {
 }
 ```
 
+### 4.  Create a Java applet with three buttons ‘red’,’green’,’blue’. 
+```c
+// Whenever user presses any button the corresponding color 
+// should be seen as background color in an applet window.
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class dColorBG extends JFrame implements ActionListener {
+    private JButton redButton;
+    private JButton greenButton;
+    private JButton blueButton;
+
+    public dColorBG() {
+        // frame
+        setTitle("Background Color");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // components
+        redButton = new JButton("Red");
+        greenButton = new JButton("Green");
+        blueButton = new JButton("Blue");
+        // action listeners
+        redButton.addActionListener(this);
+        greenButton.addActionListener(this);
+        blueButton.addActionListener(this);
+        // layout
+        setLayout(new FlowLayout());
+        add(redButton);
+        add(greenButton);
+        add(blueButton);
+        // frame
+        pack();
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new dColorBG();
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == redButton) {
+            getContentPane().setBackground(Color.RED);
+        } else if (e.getSource() == greenButton) {
+            getContentPane().setBackground(Color.GREEN);
+        } else if (e.getSource() == blueButton) {
+            getContentPane().setBackground(Color.BLUE);
+        }
+    }
+}
+```
+
+### 5.  Write a Java program  in Java to implement the concept of ‘synchronization’ using thread
+```c
+
+class Incrementer {
+    private int count = 0;
+    public synchronized void increment() {
+        count++;
+        System.out.println("Count is now " + count);
+    }
+}
+
+class MyThread implements Runnable {
+    private Incrementer Incrementer;
+    private String name;
+
+    public MyThread(Incrementer Incrementer, String name) {
+        this.Incrementer = Incrementer;
+        this.name = name;
+    }
+
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            Incrementer.increment();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class eSynchronizationUsingThread {
+    public static void main(String[] args) {
+        Incrementer Incrementer = new Incrementer();
+        Thread thread1 = new Thread(new MyThread(Incrementer, "Thread 1"));
+        Thread thread2 = new Thread(new MyThread(Incrementer, "Thread 2"));
+        thread1.start();
+        thread2.start();
+    }
+}
+```
+
+### 6.  Create a simple JDBC program that creates a table, 
+```c
+// stores data into it, retrieves & prints the data
+
+import java.sql.*;
+
+public class fSimpleJDBCProgram {
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "12345678");
+            stmt = conn.createStatement();
+            String sql = "CREATE DATABASE IF NOT EXISTS javatemp";
+            stmt.executeUpdate(sql);
+            sql = "USE javatemp";
+            stmt.executeUpdate(sql);
+            sql = "CREATE TABLE if not exists shopping_list (id INT NOT NULL AUTO_INCREMENT, item VARCHAR(255), PRIMARY KEY (id), quantity INT, price DOUBLE)";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO shopping_list (item, quantity, price) VALUES ('Apple', 5, 10.0)";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO shopping_list (item, quantity, price) VALUES ('Orange', 10, 5.0)";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO shopping_list (item, quantity, price) VALUES ('Banana', 15, 2.0)";
+            stmt.executeUpdate(sql);
+
+            sql = "SELECT * FROM shopping_list";
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                System.out.println(rs.getString("item") + " " + rs.getInt("quantity") + " " + rs.getDouble("price"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}   
+```
+
+### 7.  Write a Java program in Java to create database table using Java
+```c
+
+import java.sql.*;
+
+public class gCreateDatabaseTable {
+    public static void main(String[] args) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+    try {
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "12345678");
+        stmt = conn.createStatement();
+        String sql = "CREATE DATABASE IF NOT EXISTS TestDB";
+        stmt.executeUpdate(sql);
+        System.out.println("Database TestDB created successfully...");
+        sql = "USE TestDB";
+        stmt.executeUpdate(sql);
+        sql = "CREATE TABLE if not exists student (id INT NOT NULL, name VARCHAR(255), enrol_num INT, status INT, PRIMARY KEY (id))";
+        stmt.executeUpdate(sql);
+        System.out.println("Table student created successfully...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
